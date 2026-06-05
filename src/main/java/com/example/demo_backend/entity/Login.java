@@ -52,13 +52,6 @@ public class Login {
     public Login() {
     }
 
-    public Login(String name, String email, String otp, String password) {
-        this.name = name;
-        this.email = email;
-        this.otp = otp;
-        this.password = password;
-    }
-
     // Getters & Setters
 
     public Long getId() {
