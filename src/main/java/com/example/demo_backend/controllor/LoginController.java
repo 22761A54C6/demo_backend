@@ -18,9 +18,6 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
-    @Autowired
-    private ProfileRepo profileRepo;
-
     @PostMapping("/register")
     public String register(
             @Valid @RequestBody Login login

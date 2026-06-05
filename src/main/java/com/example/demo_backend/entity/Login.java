@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
+import java.util.List;
+
 @Entity
 @Table(name = "login_info")
 public class Login {
@@ -39,6 +41,13 @@ public class Login {
     @OneToOne(mappedBy = "user")
     @JsonIgnore
     private Profile profile;
+
+    @OneToMany(
+            mappedBy = "user",
+            cascade = CascadeType.ALL
+    )
+    @JsonIgnore
+    private List<Notes> notes;
 
     public Login() {
     }
@@ -106,5 +115,14 @@ public class Login {
 
     public void setProfile(Profile profile) {
         this.profile = profile;
+    }
+
+
+    public List<Notes> getNotes() {
+        return notes;
+    }
+
+    public void setNotes(List<Notes> notes) {
+        this.notes = notes;
     }
 }
