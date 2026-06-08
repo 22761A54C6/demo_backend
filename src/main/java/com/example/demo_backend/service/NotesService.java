@@ -5,9 +5,10 @@ import com.example.demo_backend.entity.Notes;
 import com.example.demo_backend.repository.LoginRepo;
 import com.example.demo_backend.repository.NotesRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -32,8 +33,7 @@ public class NotesService {
             return "Please Select a File";
         }
 
-        Login user = loginRepo
-                .findById(userId)
+        Login user = loginRepo.findById(userId)
                 .orElse(null);
 
         if (user == null) {
@@ -51,14 +51,13 @@ public class NotesService {
 
         String fileName = file.getOriginalFilename();
 
-        String filePath =
-                uploadDir + fileName;
+        String filePath = uploadDir + fileName;
 
         file.transferTo(new File(filePath));
 
         Notes note = new Notes();
 
-        note.setFileName(file.getOriginalFilename());
+        note.setFileName(fileName);
         note.setFileType(file.getContentType());
         note.setFileSize(file.getSize());
         note.setFilePath(filePath);
@@ -73,14 +72,18 @@ public class NotesService {
     public Page<Notes> getUserNotes(
             Long userId,
             int page,
-            int size
+            int size,
+            String sortBy,
+            String direction
     ) {
+
+        Sort sort = direction.equalsIgnoreCase("desc")
+                ? Sort.by(sortBy).descending()
+                : Sort.by(sortBy).ascending();
 
         return notesRepo.findByUserId(
                 userId,
-                PageRequest.of(page, size)
+                PageRequest.of(page, size, sort)
         );
     }
-
-
 }

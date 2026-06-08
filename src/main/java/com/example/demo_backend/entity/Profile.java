@@ -1,6 +1,8 @@
 package com.example.demo_backend.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
+
 import java.time.LocalDateTime;
 
 @Entity
