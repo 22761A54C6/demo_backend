@@ -5,7 +5,6 @@ import com.example.demo_backend.dto.UpdateProfileRequest;
 import com.example.demo_backend.dto.VerifyOtpRequest;
 import com.example.demo_backend.entity.Login;
 import com.example.demo_backend.entity.Profile;
-import com.example.demo_backend.repository.ProfileRepo;
 import com.example.demo_backend.service.LoginService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
