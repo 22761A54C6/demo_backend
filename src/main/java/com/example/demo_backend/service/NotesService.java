@@ -6,6 +6,8 @@ import com.example.demo_backend.repository.LoginRepo;
 import com.example.demo_backend.repository.NotesRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -69,8 +71,17 @@ public class NotesService {
         return "File Uploaded Successfully";
     }
 
-    public List<Notes> getUserNotes(Long userId) {
+    public Page<Notes> getUserNotes(
+            Long userId,
+            int page,
+            int size
+    ) {
 
-        return notesRepo.findByUserId(userId);
+        return notesRepo.findByUserId(
+                userId,
+                PageRequest.of(page, size)
+        );
     }
+
+
 }

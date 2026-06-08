@@ -4,6 +4,7 @@ import com.example.demo_backend.dto.VerifyOtpRequest;
 import com.example.demo_backend.entity.Login;
 import com.example.demo_backend.entity.Profile;
 import com.example.demo_backend.repository.LoginRepo;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import com.example.demo_backend.repository.ProfileRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,9 @@ public class LoginService {
     @Autowired
     private ProfileRepo profileRepo;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public String register(Login login) {
 
         if (loginRepo.findByEmail(login.getEmail()).isPresent()) {
@@ -32,6 +36,11 @@ public class LoginService {
 
         login.setOtp(otp);
         login.setVerified(false);
+        login.setPassword(
+                passwordEncoder.encode(
+                        login.getPassword()
+                )
+        );
 
         loginRepo.save(login);
 
@@ -75,7 +84,10 @@ public class LoginService {
             return "Verify Email First";
         }
 
-        if (!user.getPassword().equals(password)) {
+        if (!passwordEncoder.matches(
+                password,
+                user.getPassword()
+        )) {
             return "Invalid Password";
         }
 
