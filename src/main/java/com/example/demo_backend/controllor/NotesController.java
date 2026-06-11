@@ -3,7 +3,6 @@ package com.example.demo_backend.controllor;
 import com.example.demo_backend.entity.Notes;
 import com.example.demo_backend.service.NotesService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,47 +10,22 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/auth/dashboard/notes")
+@RequestMapping("/notes")
 public class NotesController {
 
     @Autowired
     private NotesService notesService;
 
-    @PostMapping("/upload/{userId}")
+    @PostMapping("/upload")
     public String uploadFile(
-            @PathVariable Long userId,
             @RequestParam("file") MultipartFile file
     ) throws IOException {
 
-        return notesService.uploadFile(userId, file);
+        return notesService.uploadFile(file);
     }
 
-    @GetMapping("/{userId}")
-    public List<Notes> getUserNotes(
-
-            @PathVariable Long userId,
-
-            @RequestParam(defaultValue = "0")
-            int page,
-
-            @RequestParam(defaultValue = "5")
-            int size,
-
-            @RequestParam(defaultValue = "id")
-            String sortBy,
-
-            @RequestParam(defaultValue = "asc")
-            String direction
-    ) {
-
-        return notesService
-                .getUserNotes(
-                        userId,
-                        page,
-                        size,
-                        sortBy,
-                        direction
-                )
-                .getContent();
+    @GetMapping("/getnotes")
+    public List<Notes> getAllNotes() {
+        return notesService.getAllNotes();
     }
 }
