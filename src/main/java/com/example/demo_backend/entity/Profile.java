@@ -10,13 +10,21 @@ public class Profile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String userEmail;
+
     private String displayName;
 
     private String phone;
 
+    private String mobile;
+
     private String bio;
 
     private String status;
+
+    private String userId;
+
+    private String loginTime;
 
     public Profile() {
     }
@@ -27,6 +35,14 @@ public class Profile {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 
     public String getDisplayName() {
@@ -45,6 +61,14 @@ public class Profile {
         this.phone = phone;
     }
 
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
     public String getBio() {
         return bio;
     }
@@ -59,5 +83,21 @@ public class Profile {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getLoginTime() {
+        return loginTime;
+    }
+
+    public void setLoginTime(String loginTime) {
+        this.loginTime = loginTime;
     }
 }

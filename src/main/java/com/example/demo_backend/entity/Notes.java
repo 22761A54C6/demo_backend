@@ -16,6 +16,8 @@ public class Notes {
 
     private String filePath;
 
+    private String uploadedBy;
+
     public Notes() {
     }
 
@@ -45,5 +47,13 @@ public class Notes {
 
     public void setFilePath(String filePath) {
         this.filePath = filePath;
+    }
+
+    public String getUploadedBy() {
+        return uploadedBy;
+    }
+
+    public void setUploadedBy(String uploadedBy) {
+        this.uploadedBy = uploadedBy;
     }
 }
